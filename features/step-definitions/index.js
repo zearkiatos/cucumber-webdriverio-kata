@@ -35,3 +35,19 @@ When("I try to login", () => {
 Then("I expect to not be able to login", () => {
   $(".notice.alert.alert-danger").waitForDisplayed(5000);
 });
+
+When(/^I fill with (.*) and (.*)$/, (email, password) => {
+  const mailInput = $('input[name="email"]');
+  mailInput.click();
+  mailInput.keys(email);
+
+  const passwordInput = $('input[name="password"]');
+  passwordInput.click();
+  passwordInput.keys(password);
+});
+
+Then("I expect to see {string}", (error) => {
+  $(".notice.alert.alert-danger").waitForDisplayed(5000);
+  const alertText = browser.$(".notice.alert.alert-danger").getText();
+  expect(alertText).to.include(error);
+});

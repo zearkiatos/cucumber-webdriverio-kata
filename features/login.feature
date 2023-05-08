@@ -7,3 +7,7 @@ Scenario: Login failed
     And I fill a wrong email and password
     And I try to login
     Then I expect to not be able to login
+  Examples:
+      | email            | password | error                    |
+      |                  |          | "Ingresa una contraseña"   |
+      | miso@gmail.com   |    1234  | "Oops! Revisa tu contraseña"      |
