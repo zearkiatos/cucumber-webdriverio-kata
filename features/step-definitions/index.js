@@ -2,6 +2,7 @@ const { Given } = require("cucumber");
 const { When } = require("cucumber");
 const { Then } = require("cucumber");
 const { expect } = require("chai");
+const properties = require("../../properties.json");
 
 Given("I go to losestudiantes home screen", () => {
   browser.url("/uniandes/");
@@ -28,6 +29,18 @@ When("I fill a wrong email and password", () => {
   passwordInput.setValue("123467891");
 });
 
+When("I fill a good email and password", () => {
+  const cajaLogIn = $(".cajaLogIn");
+
+  const mailInput = $('input[name="email"]');
+  mailInput.click();
+  mailInput.setValue(properties.GOOD_USERNAME);
+
+  const passwordInput = $('input[name="password"]');
+  passwordInput.click();
+  passwordInput.setValue(properties.GOOD_PASSWORD);
+});
+
 When("I try to login", () => {
   $("button=Ingresar").click();
 });
@@ -50,4 +63,10 @@ Then("I expect to see {string}", (error) => {
   $(".notice.alert.alert-danger").waitForDisplayed(5000);
   const alertText = browser.$(".notice.alert.alert-danger").getText();
   expect(alertText).to.include(error);
+});
+
+Then("I expect to be able to login", () => {
+  browser.waitUntil(5000);
+  const text = $(".loginButton.btn.btn-primary").getText();
+  expect(text).to.be("Salir");
 });

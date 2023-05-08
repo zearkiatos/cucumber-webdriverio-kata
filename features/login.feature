@@ -11,3 +11,14 @@ Scenario: Login failed
       | email            | password | error                    |
       |                  |          | "Ingresa una contraseña"   |
       | miso@gmail.com   |    1234  | "Oops! Revisa tu contraseña"      |
+
+Scenario: Login success
+    Given I go to losestudiantes home screen
+    When I open the login screen
+    And I fill a good email and password
+    And I try to login
+    Then I expect to be able to login
+  Examples:
+      | email            | password | error                    |
+      |                  |          | "Ingresa una contraseña"   |
+      | miso@gmail.com   |    1234  | "Oops! Revisa tu contraseña"      |
